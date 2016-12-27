@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_restful import Api
-from database import db_session, init_db
-from resources import JobHistoryApi, UserAssocApi
+from accounting import db_session, init_db, JobHistoryApi, UserAssocApi
 
 app = Flask(__name__)
 api = Api(app)
@@ -12,7 +11,6 @@ def shutdown_session(exception=None):
     db_session.remove()
 
 init_db()
-
 
 api.add_resource(JobHistoryApi, '/', '/jobhistory')
 api.add_resource(UserAssocApi, '/users')
