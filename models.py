@@ -4,7 +4,7 @@ from database import Base
 import json
 from datetime import datetime
 
-class User(Base):
+class Assoc(Base):
     __tablename__ = 'nebula_assoc_table'
     id_assoc = Column(Integer, primary_key=True)
     user = Column(String)
@@ -61,20 +61,3 @@ class Job(Base):
         me['time_end']=datetime.fromtimestamp(self.time_end).ctime()
         me['priority']=int(self.priority)
         return me
-
-        # return {
-        #         'id_job':  int(self.id_job),
-        #         'id_user': int(self.id_user),
-        #         'job_name': self.job_name,
-        #         'cpus_req': int(self.cpus_req),
-        #         'mem_req': int(self.mem_req),
-        #         'account': self.account,
-        #         'nodelist': self.nodelist,
-        #         'partition': self.partition,
-        #         'nodes_alloc': int(self.nodes_alloc),
-        #         'timelimit': int(self.timelimit),
-        #         'time_submit': datetime.fromtimestamp(self.time_submit).ctime(),
-        #         'time_start': datetime.fromtimestamp(self.time_start).ctime(),
-        #         'time_end': datetime.fromtimestamp(self.time_end).ctime(),
-        #         'priority': int(self.priority)
-        #         }
