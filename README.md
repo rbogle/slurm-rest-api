@@ -3,7 +3,7 @@
 This is a flask based rest interface to slurm.
 There are two sub-packages which implement interfaces to different parts of the slurm manager
   * acctapi - interacts with the accounting database slurmdb to get job history and user associations
-  * slurmapi - interactw with the pyslurm package to get queue, node, partition, and stat info
+  * slurmapi - interacts with the pyslurm package to get queue, node, partition, and stat info
 
 Endpoints are
 ```
@@ -34,4 +34,18 @@ conda install -c conda-forge flask-restful flask-sqlalchemy
 pip install mysql-python
 pip install uwsgi
 ```
-Make sure the uwsgi files and nginx file all point to the location of your git clone and the python evironment.
+Make sure the uwsgi files and nginx file all point to the location of your git clone and the python environment.
+Make sure the location of the uwsgi socket file is writable by nginx or the user that starts uwsgi
+
+leave slurmrest.ini in repo dir
+copy slurmrest.service to /usr/lib/systemd/systemd
+include nginx_slurmrest.conf fragment in nginx config.
+
+then:
+```
+sudo systemctl enable slurmrest.service
+sudo systemctl start slurmrest.service
+
+sudo systemctl restart nginx
+
+```
