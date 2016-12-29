@@ -1,4 +1,4 @@
-##slurm rest api
+# Slurm RestAPI
 
 This is a flask based rest interface to slurm.
 There are two sub-packages which implement interfaces to different parts of the slurm manager
