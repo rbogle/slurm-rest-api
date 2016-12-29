@@ -1,4 +1,4 @@
 USE_ACCT_DB = True
 DEBUG = True
 HOST = '0.0.0.0'
-PORT = '5000'
+PORT = 5000
