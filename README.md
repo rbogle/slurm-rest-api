@@ -34,18 +34,28 @@ conda install -c conda-forge flask-restful flask-sqlalchemy
 pip install mysql-python
 pip install uwsgi
 ```
+
 Make sure the uwsgi files and nginx file all point to the location of your git clone and the python environment.
+
 Make sure the location of the uwsgi socket file is writable by nginx or the user that starts uwsgi
 
-leave slurmrest.ini in repo dir
-copy slurmrest.service to /usr/lib/systemd/systemd
-include nginx_slurmrest.conf fragment in nginx config.
+* leave slurmrest.ini in repo dir
+* copy slurmrest.service to /usr/lib/systemd/systemd
+* include nginx_slurmrest.conf fragment in nginx config.
 
 then:
 ```
 sudo systemctl enable slurmrest.service
 sudo systemctl start slurmrest.service
 
+# is uwsgi running now?
+ps -ef | grep uwsgi
+
+# restart nginx
 sudo systemctl restart nginx
+
+# check if endpoints are live
+curl http://localhost/slurmapi/users
+
 
 ```
