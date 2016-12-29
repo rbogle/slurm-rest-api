@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI instance to serve slurmrest
+After=network.target
+
+[Service]
+User=nginx
+Group=nginx
+WorkingDirectory=/opt/slurm_rest_api
+Environment="PATH=/opt/conda/env/slurm_rest_api/bin"
+ExecStart=/opt/conda/env/slurm_rest_api/bin/uwsgi --ini slurmrest.ini
+
+[Install]
+WantedBy=multi-user.target
