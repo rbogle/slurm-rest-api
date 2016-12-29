@@ -6,6 +6,7 @@ import config
 
 app = Flask(__name__)
 app.debug = config.DEBUG
+app.host = config.host
 api = Api(app)
 
 if config.USE_ACCT_DB:
@@ -24,4 +25,4 @@ api.add_resource(Slurm_Partitions, '/partitions')
 api.add_resource(Slurm_Statistics, '/stats')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run()
