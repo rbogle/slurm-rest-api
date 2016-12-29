@@ -1,5 +1,6 @@
 from flask_restful import Resource, Api, reqparse
 from models import Job, Assoc
+from sqlalchemy import desc
 
 
 class UserAssocApi(Resource):
@@ -17,13 +18,13 @@ class UserAssocApi(Resource):
         return ul
 
 class JobHistoryApi(Resource):
-    
+
     def get(self):
         parser =reqparse.RequestParser()
         parser.add_argument('limit', type=int, default=10)
         parser.add_argument('offset', type=int, default=0)
         parser.add_argument('user')
-        parser.add_argument('assoc', type=int, default=None)
+        parser.add_argument('associd', type=int, default=None)
         parser.add_argument('startbefore')
         parser.add_argument('startafter')
         parser.add_argument('endafter')
@@ -40,10 +41,8 @@ class JobHistoryApi(Resource):
             for assoc in userlist:
                 id_list.append(assoc.id_assoc)
             criterion.append(Job.id_assoc.in_(id_list))
-            #joblist = Job.query.filter(Job.id_assoc.in_(id_list)).limit(args['limit']).offset(args['offset']).all()
-        if args['assoc']:
-            criterion.append(Job.id_assoc==args['assoc'])
-            #joblist = Job.query.filter(Job.id_assoc== args['assoc']).imit(args['limit']).offset(args['offset']).all()
+        if args['associd']:
+            criterion.append(Job.id_assoc==args['associd'])
         if args['jobname']:
             criterion.append(Job.job_name==args['jobname'])
         if args['jobid']:
@@ -52,7 +51,7 @@ class JobHistoryApi(Resource):
             criterion.append(Job.partition==args['partition'])
 
         userlist = Assoc.query.all()
-        joblist = Job.query.filter(*criterion).limit(args['limit']).offset(args['offset']).all()
+        joblist = Job.query.filter(*criterion).order_by(desc(Job.time_submit)).limit(args['limit']).offset(args['offset']).all()
 
         users = dict()
         for user in userlist:

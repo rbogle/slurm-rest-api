@@ -16,7 +16,7 @@ if config.USE_ACCT_DB:
 
     init_db()
 
-    api.add_resource(JobHistoryApi, '/', '/jobhistory')
+    api.add_resource(JobHistoryApi, '/history')
     api.add_resource(UserAssocApi, '/users')
 
 api.add_resource(Slurm_Queue, '/queue')
