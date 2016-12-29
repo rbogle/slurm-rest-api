@@ -6,12 +6,14 @@ There are two sub-packages which implement interfaces to different parts of the 
   * slurmapi - interactw with the pyslurm package to get queue, node, partition, and stat info
 
 Endpoints are
- /users - can be filtered with users=<username>
+```
+ /users - can be filtered on user
  /history - can be filtered on offset,limit,jobid,user,partition,jobname,associd
  /queue
  /partitions
  /nodes
  /stats
+ ```
 
 ### Install / Setup
 Files are included to enable running the flask service under NGINX via uwsgi
@@ -19,14 +21,17 @@ Files are included to enable running the flask service under NGINX via uwsgi
  * etc/slurmrest.service - systemd service descriptor for running this service under uwsgi
  * etc/nginx_slurmrest.conf - example nginx config fragment for proxying to the uwsgi service.
 
-To install clone this repo somewhere like: `/opt`
+To install, clone this repo somewhere like: `/opt`
+```
+git clone urlforgitrepo /opt
+```
 Then setup a virtualenv or conda env with the following:
 ```
-conda create -n slurm_rest_api
-source activate slurm_rest_api
+conda create -p /opt/conda/envs/slurm_rest_api python=2.7
+source activate /opt/conda/envs/slurm_rest_api
 conda install flask
 conda install -c conda-forge flask-restful flask-sqlalchemy
 pip install mysql-python
-Pip install uwsgi
+pip install uwsgi
 ```
 Make sure the uwsgi files and nginx file all point to the location of your git clone and the python evironment.
