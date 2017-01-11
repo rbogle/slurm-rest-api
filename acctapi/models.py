@@ -43,6 +43,12 @@ class Job(Base):
     def __repr__(self):
         return str(self.to_dict())
 
+    def conv_time(time):
+        rval =""
+        if time>0:
+            rval = datetime.fromtimestamp(time).ctime()
+        return rval
+
     def to_dict(self):
         states = [
           'JOB_PENDING',
@@ -69,9 +75,9 @@ class Job(Base):
         me['partition']= self.partition
         me['nodes_alloc']= int(self.nodes_alloc)
         me['timelimit']=int(self.timelimit)
-        me['time_submit']=datetime.fromtimestamp(self.time_submit).ctime()
-        me['time_start']=datetime.fromtimestamp(self.time_start).ctime()
-        me['time_end']=datetime.fromtimestamp(self.time_end).ctime()
+        me['time_submit']=self.conv_time(self.time_submit)
+        me['time_start']=self.conv_time(self.time_start)
+        me['time_end']=self.conv_time(self.time_end)
         me['priority']=int(self.priority)
         self.state= max(min(10, int(self.state)),0)
         me['state'] = states[self.state]
