@@ -43,7 +43,7 @@ class Job(Base):
     def __repr__(self):
         return str(self.to_dict())
 
-    def conv_time(time):
+    def conv_time(self,time):
         rval =""
         if time>0:
             rval = datetime.fromtimestamp(time).ctime()
