@@ -38,11 +38,25 @@ class Job(Base):
     time_start  = Column(Integer)
     time_end  = Column(Integer)
     priority  = Column(Integer)
+    state = Column(Integer)
 
     def __repr__(self):
         return str(self.to_dict())
 
     def to_dict(self):
+        states = [
+          'JOB_PENDING',
+          'JOB_RUNNING',
+          'JOB_SUSPENDED',
+          'JOB_COMPLETE',
+          'JOB_CANCELLED',
+          'JOB_FAILED',
+          'JOB_TIMEOUT',
+          'JOB_NODE_FAIL',
+          'JOB_PREEMPTED',
+          'JOB_BOOT_FAIL',
+          'JOB_DEADLINE'
+        ]
         me = dict()
         me['id_job']=int(self.id_job)
         me['id_user']= int(self.id_user)
@@ -59,4 +73,6 @@ class Job(Base):
         me['time_start']=datetime.fromtimestamp(self.time_start).ctime()
         me['time_end']=datetime.fromtimestamp(self.time_end).ctime()
         me['priority']=int(self.priority)
+        self.state= max(min(10, int(self.state)),0)
+        me['state'] = states[self.state]
         return me

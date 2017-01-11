@@ -1,10 +1,14 @@
 from flask_restful import Resource, reqparse
 import pyslurm
+import pwd
+
 
 class Slurm_Queue(Resource):
     def get(self):
         j = pyslurm.job()
         data = j.get()
+        for id,job in data.iteritems():
+            job['user_name'] = pwd.getpwuid(job['user_id'])[0]
         return data
 
 class Slurm_Statistics(Resource):
