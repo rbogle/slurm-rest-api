@@ -43,11 +43,16 @@ class Job(Base):
     def __repr__(self):
         return str(self.to_dict())
 
-    def conv_time(self,time):
+    def conv_timestamp(self,time):
         rval =""
         if time>0:
             rval = datetime.fromtimestamp(time).ctime()
         return rval
+
+    def conv_timelimit(self, minutes):
+        hours, mins = divmod(minutes, 60)
+        days, hours = divmod(hours, 24)
+        return "%d:%d:%d" %(days,hours,mins)
 
     def to_dict(self):
         states = [
@@ -74,10 +79,10 @@ class Job(Base):
         me['nodelist']= self.nodelist
         me['partition']= self.partition
         me['nodes_alloc']= int(self.nodes_alloc)
-        me['timelimit']=int(self.timelimit)
-        me['time_submit']=self.conv_time(self.time_submit)
-        me['time_start']=self.conv_time(self.time_start)
-        me['time_end']=self.conv_time(self.time_end)
+        me['timelimit']=self.conv_timelimit(int(self.timelimit))
+        me['time_submit']=self.conv_timestamp(int(self.time_submit))
+        me['time_start']=self.conv_timestamp(int(self.time_start))
+        me['time_end']=self.conv_timestamp(int(self.time_end))
         me['priority']=int(self.priority)
         self.state= max(min(10, int(self.state)),0)
         me['state'] = states[self.state]
