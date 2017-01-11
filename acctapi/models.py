@@ -52,7 +52,7 @@ class Job(Base):
     def conv_timelimit(self, minutes):
         hours, mins = divmod(minutes, 60)
         days, hours = divmod(hours, 24)
-        return "%d:%d:%d" %(days,hours,mins)
+        return "%dd:%dh:%dm" %(days,hours,mins)
 
     def to_dict(self):
         states = [
