@@ -25,6 +25,7 @@ class JobHistoryApi(Resource):
         parser.add_argument('offset', type=int, default=0)
         parser.add_argument('user')
         parser.add_argument('associd', type=int, default=None)
+        parser.add_argument('state', type=int, default=None)
         parser.add_argument('startbefore')
         parser.add_argument('startafter')
         parser.add_argument('endafter')
@@ -49,6 +50,8 @@ class JobHistoryApi(Resource):
             criterion.append(Job.id_job==args['jobid'])
         if args['partition']:
             criterion.append(Job.partition==args['partition'])
+        if args['state']:
+            criterion.append(Job.state==args['state'])
 
         userlist = Assoc.query.all()
         joblist = Job.query.filter(*criterion).order_by(desc(Job.time_submit)).limit(args['limit']).offset(args['offset']).all()
