@@ -6,6 +6,8 @@ After=network.target
 User=nginx
 Group=nginx
 WorkingDirectory=/opt/slurm_rest_api
+RuntimeDirectory=uwsgi
+RuntimeDirectoryMode=0750
 Environment="PATH=/opt/conda/envs/slurm_rest_api/bin"
 ExecStart=/opt/conda/envs/slurm_rest_api/bin/uwsgi --ini slurmrest.ini
 
