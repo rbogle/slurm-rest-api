@@ -23,7 +23,7 @@ Files are included to enable running the flask service under NGINX via uwsgi
 
 To install, clone this repo somewhere like: `/opt`
 ```
-git clone git@astrogit.wr.usgs.gov:rbogle/slurm_rest_api.git /opt
+git clone git@github.com:rbogle/slurm-rest-api.git /opt
 ```
 Then setup a virtualenv or conda env with the following:
 ```
