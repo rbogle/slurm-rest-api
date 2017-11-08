@@ -15,6 +15,10 @@ Endpoints are
  /stats
  ```
 
+### Configure accounting database
+Modify `/acctapi/config.py` to match your slurmdb credentials. You may want to create a new user with read-only access to access the database.
+The `ASSOC_TABLE_NAME` and `JOB_TABLE_NAME` variables must match the schema names of the assoc and job tables respectively.
+
 ### Install / Setup
 Files are included to enable running the flask service under NGINX via uwsgi
  * slurmrest.ini - uwsgi ini file
